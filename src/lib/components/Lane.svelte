@@ -1,42 +1,46 @@
 <script>
-    import { flip } from "svelte/animate";
-    let { children, status } = $props();
+	import { flip } from "svelte/animate";
 
-    let listA = $state([1, 2, 3]);
-    let listB = $state([4, 5, 6]);
+	const { status, items, onMove } = $props();
 
-    function startFromA(item, event) {
-        event.dataTransfer.setData("text/plain", item);
-    }
+	function dragStart(item, event) {
+		event.dataTransfer.setData("text/plain", JSON.stringify(item));
+	}
 
-    function startFromB(item, event) {
-        event.dataTransfer.setData("text/plain", item);
-    }
+	function dragOver(event) {
+		event.preventDefault();
+	}
 
-    function dragOver(event) {
-        event.preventDefault();
-    }
+	function drop(event) {
+		event.preventDefault();
+		const data = event.dataTransfer.getData("text/plain");
+		if (!data) return;
 
-    function dropToA(event) {
-        let item = event.dataTransfer.getData("text/plain");
-        listB = listB.filter(i => i != item);
-        listA.push(item);
-        listA.sort();
-        listB.sort();
-    }
+		const item = JSON.parse(data);
+		const from = item.status;
+		const to = status;
+		if (from === to) return;
 
-    function dropToB(event) {
-        let item = event.dataTransfer.getData("text/plain");
-        listA = listA.filter(i => i != item);
-        listB.push(item);
-        listA.sort();
-        listB.sort();
-    }
+		onMove(from, to, item);
+	}
 </script>
 
-<section class="bg-white h-[350px] w-[200px] space-y-2" ondragover={dragOver} ondrop={dropToA} aria-label="Lane">
-    <p>{status}</p>
-    {#each listA as item (item) }
-    <article ondragstart={(event) => startFromA(item, event)} class="p-4 bg-purple-400 cursor-grab" draggable="true" animate:flip>{item}</article>
-    {/each}
+<!-- svelte-ignore a11y_no_static_element_interactions -->
+<section
+	class="bg-white h-[350px] w-[220px] p-2 space-y-2 rounded shadow"
+	ondragover={dragOver}
+	ondrop={drop}
+>
+	<h2 class="text-center font-semibold">{status}</h2>
+
+	{#each items as item (item.id)}
+		<article
+			class="p-3 bg-purple-400 cursor-grab rounded"
+			draggable="true"
+			ondragstart={(e) => dragStart(item, e)}
+			animate:flip
+		>
+			{item.title}
+		</article>
+	{/each}
 </section>
