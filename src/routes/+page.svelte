@@ -1,7 +1,8 @@
 <script>
 	import Board from "$lib/components/Board.svelte";
+	import Header from "$lib/components/Header.svelte";
 
 </script>
-<h1 class="text-center">Kanban Board</h1>
 
+<Header></Header>
 <Board></Board>
