@@ -26,6 +26,20 @@
 			...allLanes["Archiv"]
 		];
 		localStorage.setItem("savedIssues", JSON.stringify(all));
+
+		if (itemMoved?.status === "Done") {
+			notify(itemMoved.title, "Diese Aufgabe ist fertig!");
+		}
+	}
+
+	async function notify(title, notif) {
+		let permission = Notification.permission;
+		if (permission !== "granted") {
+			permission = await Notification.requestPermission();
+		}
+		if (permission === "granted") {
+			new Notification(title, { body: notif });
+		}
 	}
 
 	function moveTask(from, to, item) {
