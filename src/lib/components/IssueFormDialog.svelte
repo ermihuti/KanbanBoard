@@ -18,6 +18,10 @@
 			creationDate: format(new Date(), "yyyy-MM-dd"),
 			due: dueDate
 		};
+
+        let saved = JSON.parse(localStorage.getItem("savedIssues")) || [];
+		saved.push(newIssue);
+		localStorage.setItem("savedIssues", JSON.stringify(saved));
 	}
 </script>
 
