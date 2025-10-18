@@ -1,5 +1,6 @@
 <script>
 	import { flip } from "svelte/animate";
+	import IssueCard from "./IssueCard.svelte";
 
 	const { status, items, onMove } = $props();
 
@@ -33,14 +34,13 @@
 >
 	<h2 class="text-center font-semibold">{status}</h2>
 
-	{#each items as item (item.id)}
-		<article
-			class="p-3 bg-purple-400 cursor-grab rounded"
+	{#each items as issue (issue.id)}
+		<div
 			draggable="true"
-			ondragstart={(e) => dragStart(item, e)}
+			ondragstart={(e) => dragStart(issue, e)}
 			animate:flip
 		>
-			{item.title}
-		</article>
+			<IssueCard {issue} />
+		</div>
 	{/each}
 </section>

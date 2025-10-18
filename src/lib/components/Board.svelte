@@ -1,11 +1,12 @@
 <script>
 	import Lane from "./Lane.svelte";
+	import IssueFormDialog from "./IssueFormDialog.svelte";
 
 	const allLanes = $state({
 		"To Do": [],
 		"Doing": [],
 		"Done": [],
-		"Archiv": []
+		"Archive": []
 	});
 
 	const issues = $state(JSON.parse(localStorage.getItem("savedIssues")) || [
@@ -23,12 +24,12 @@
 			...allLanes["To Do"],
 			...allLanes["Doing"],
 			...allLanes["Done"],
-			...allLanes["Archiv"]
+			...allLanes["Archive"]
 		];
 		localStorage.setItem("savedIssues", JSON.stringify(all));
 
 		if (itemMoved?.status === "Done") {
-			notify(itemMoved.title, "Diese Aufgabe ist fertig!");
+			notify(itemMoved.title, "This task is finished!");
 		}
 	}
 
