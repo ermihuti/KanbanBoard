@@ -1,11 +1,20 @@
 <script>
 	import { format } from "date-fns";
 
+	let { show = $bindable() } = $props();
+
 	let title = $state("");
 	let description = $state("");
 	let dueDate = $state("");
 	let storyPoints = $state(1);
 	let priority = $state("Medium");
+
+	let dialogRef = $state();
+
+	$effect(() => {
+		if (show) dialogRef?.showModal();
+		else dialogRef?.close();
+	});
 
 	function createIssue() {
 		const newIssue = {
@@ -22,11 +31,14 @@
         let saved = JSON.parse(localStorage.getItem("savedIssues")) || [];
 		saved.push(newIssue);
 		localStorage.setItem("savedIssues", JSON.stringify(saved));
-	}
+	
+    	show = false;
+		location.reload();
+    }
 </script>
 
 {#if show}
-	<dialog class="rounded-lg p-6 w-[320px] shadow-xl">
+	<dialog bind:this={dialogRef} class="rounded-lg p-6 w-[320px] shadow-xl">
 		<h2 class="text-lg font-semibold mb-3">New Issue</h2>
 
 		<input bind:value={title} placeholder="Title" class="border p-2 w-full mb-2 rounded" />
@@ -40,6 +52,7 @@
 		</select>
 
 		<div class="flex justify-end space-x-2 mt-4">
+            <button onclick={() => (show = false)} class="px-3 py-1 bg-gray-300 rounded">Cancel</button>
 			<button onclick={createIssue} class="px-3 py-1 bg-purple-600 text-white rounded">Save</button>
 		</div>
 	</dialog>
