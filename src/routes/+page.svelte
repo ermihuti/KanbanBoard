@@ -5,6 +5,10 @@
 
 </script>
 
-<Header></Header>
-<Board></Board>
-<Footer></Footer>
+<div class="min-h-screen flex flex-col bg-gray-100">
+  <Header />
+  <main class="flex-1 p-6">
+    <Board />
+  </main>
+  <Footer />
+</div>
