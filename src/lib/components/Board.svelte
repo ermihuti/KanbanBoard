@@ -52,7 +52,41 @@
 
 	const getStoryPoints = (status) =>
 		allLanes[status].reduce((s, i) => s + (i.storyPoints || 0), 0);
+
+	function exportCSV() {
+		const all = [
+			...allLanes["To Do"],
+			...allLanes["Doing"],
+			...allLanes["Done"],
+			...allLanes["Archive"]
+		];
+
+		if (!all.length) return alert("No issues to export!");
+
+		const header = Object.keys(all[0]).join(",");
+		const rows = all.map(i =>
+			Object.values(i)
+				.map(v => `"${String(v).replace(/"/g, '""')}"`)
+				.join(",")
+		);
+		const csvContent = [header, ...rows].join("\n");
+		const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+		const link = document.createElement("a");
+		link.href = URL.createObjectURL(blob);
+		link.download = "issues.csv";
+		link.click();
+	}
 </script>
+
+<div class="flex justify-between items-center p-4">
+	<h2 class="text-xl font-semibold">Board Overview</h2>
+	<button
+		onclick={exportCSV}
+		class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+	>
+		Export CSV
+	</button>
+</div>
 
 <main class="p-8 w-full bg-gray-200 min-h-[500px] flex justify-between items-start space-x-4">
 	{#each lanesArray as lane}
