@@ -7,8 +7,9 @@
 	async function share() {
 		try {
 			await navigator.share({
-				title: issue.title,
-				text: `${issue.description}\nDue on: ${format(new Date(issue.due), "dd.MM.yyyy", { locale: de })}`
+				title: issue.title || "Untitled Issue",
+				text: `${issue.title}\n${issue.description}\nDue on: ${format(new Date(issue.due), "dd.MM.yyyy", { locale: de })}`,
+				url: location.href
 			});
 		} catch (err) {
 			console.log("Sharing failed:", err);
