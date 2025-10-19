@@ -14,6 +14,36 @@
 			console.log("Sharing failed:", err);
 		}
 	}
+
+	function exportICS() {
+		const startDate = new Date(issue.creationDate);
+		const endDate = new Date(issue.due);
+
+		const icsContent = `
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//KanbanBoard//Issue//EN
+BEGIN:VEVENT
+UID:${issue.id}@kanban.local
+DTSTAMP:${format(new Date(), "yyyyMMdd'T'HHmmss")}
+DTSTART:${format(startDate, "yyyyMMdd'T'HHmmss")}
+DTEND:${format(endDate, "yyyyMMdd'T'HHmmss")}
+SUMMARY:${issue.title}
+DESCRIPTION:${issue.description}
+END:VEVENT
+END:VCALENDAR
+`.trim();
+
+		const blob = new Blob([icsContent], { type: "text/calendar" });
+		const url = URL.createObjectURL(blob);
+		const a = document.createElement("a");
+		a.href = url;
+		a.download = `${issue.title.replace(/\s+/g, "_") || "issue"}.ics`;
+		document.body.appendChild(a);
+		a.click();
+		document.body.removeChild(a);
+		URL.revokeObjectURL(url);
+	}
 </script>
 
 <article
@@ -31,6 +61,13 @@
 			onclick={share}
 		>
 			Share
+		</button>
+
+		<button
+			class="px-3 py-1 rounded bg-white text-purple-700 text-xs hover:bg-gray-100 transition"
+			onclick={exportICS}
+		>
+			Export .ics
 		</button>
 	</div>
 </article>
