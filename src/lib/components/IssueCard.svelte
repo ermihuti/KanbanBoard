@@ -4,6 +4,9 @@
 
 	const { issue } = $props();
 
+	let now = $state(new Date());
+	let isOverdue = $derived(new Date(issue.due) < now);
+
 	async function share() {
 		try {
 			await navigator.share({
@@ -48,12 +51,17 @@ END:VCALENDAR
 </script>
 
 <article
-	class="p-3 bg-purple-400 cursor-grab rounded text-white space-y-1 shadow"
+	class={`p-3 cursor-grab rounded text-white space-y-1 shadow transition duration-300 
+		${isOverdue ? 'bg-red-500 animate-pulse' : 'bg-purple-400'}`}
 	draggable="true"
 >
 	<h3 class="font-semibold">{issue.title}</h3>
 	<p class="text-xs line-clamp-2">{issue.description}</p>
-	<p class="text-[10px]">{format(new Date(issue.due), "dd.MM.yyyy", { locale: de })}</p>
+	<p class="text-[10px]">{format(new Date(issue.due), "dd.MM.yyyy", { locale: de })}
+		{#if isOverdue}
+			<span class="ml-1 text-yellow-200 font-semibold">(Overdue)</span>
+		{/if}
+	</p>
 	<p class="text-[10px]">{issue.storyPoints} SP | {issue.priority}</p>
 
 	<div class="flex gap-2 pt-2">
