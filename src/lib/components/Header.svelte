@@ -16,6 +16,7 @@
 
 	async function showPosition(pos) {
 		const { latitude, longitude } = pos.coords;
+		let newFlag = "";
 
 		try {
 			const response = await fetch(
