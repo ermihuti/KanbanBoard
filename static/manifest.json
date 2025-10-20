@@ -4,6 +4,7 @@
   "short_name": "Kanban",
   "description": "A simple offline Kanban Board PWA",
   "start_url": "/",
+  "scope": "/",
   "display": "standalone",
   "background_color": "#7C3AED",
   "theme_color": "#7C3AED",
@@ -17,7 +18,8 @@
     {
       "src": "/icons/icon-512x512.png",
       "sizes": "512x512",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any maskable"
     }
   ]
 }
