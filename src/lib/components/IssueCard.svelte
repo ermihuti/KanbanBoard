@@ -20,8 +20,11 @@
 	}
 
 	function exportICS() {
-		const startDate = new Date(issue.creationDate);
-		const endDate = new Date(issue.due);
+		const startDate = new Date(issue.due);
+		startDate.setHours(0, 0, 0, 0);
+
+		const endDate = new Date(startDate);
+		endDate.setHours(24, 0, 0, 0);
 
 		const icsContent = `
 BEGIN:VCALENDAR
