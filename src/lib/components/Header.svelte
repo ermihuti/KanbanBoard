@@ -16,7 +16,6 @@
 
 	async function showPosition(pos) {
 		const { latitude, longitude } = pos.coords;
-		let newFlag = "";
 
 		try {
 			const response = await fetch(
@@ -31,7 +30,7 @@
 				`https://restcountries.com/v3.1/name/${countryName}`
 			);
 			const data = await countryResponse.json();
-			flag = data[0]?.flags?.png || "";
+			const newFlag = data[0]?.flags?.png || "";
 
 			if (newFlag !== flag) {
 				flag = newFlag;
