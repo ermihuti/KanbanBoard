@@ -8,6 +8,12 @@
 	let error = null;
 	const apiKey = import.meta.env.VITE_GEOAPIFY_KEY;
 
+	const savedUserInfo = localStorage.getItem("userInfo");
+	if (savedUserInfo) {
+		const info = JSON.parse(savedUserInfo);
+		flag = info.flag || "";
+	}
+
 	async function showPosition(pos) {
 		const { latitude, longitude } = pos.coords;
 
@@ -25,6 +31,14 @@
 			);
 			const data = await countryResponse.json();
 			flag = data[0]?.flags?.png || "";
+
+			if (newFlag !== flag) {
+				flag = newFlag;
+				localStorage.setItem(
+					"userInfo",
+					JSON.stringify({ country: countryName, flag })
+				);
+			}
 		} catch (err) {
 			error = "Error: " + err.message;
 			console.log(error);
