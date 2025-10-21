@@ -16,6 +16,13 @@
 		"Archive": "bg-gray-400"
 	};
 
+	let focusColors = {
+		"To Do": "focus-within:ring-blue-400",
+		"Doing": "focus-within:ring-yellow-400",
+		"Done": "focus-within:ring-green-400",
+		"Archive": "focus-within:ring-gray-400"
+	};
+
 	const issues = $state(JSON.parse(localStorage.getItem("savedIssues")) || [
 		{ id: 1, title: "Example Task", description: "This is an example task", status: "To Do", storyPoints: 2, priority: "Medium", creationDate: "2025-10-10", due: "2025-10-20" }
 	]);
@@ -98,7 +105,7 @@
 <main class="p-8 w-full bg-gray-50 min-h-[600px] flex justify-between items-start gap-6 overflow-x-auto rounded-2xl">
 	{#each lanesArray as lane}
 		<div
-			class="flex flex-col items-center shadow-sm rounded-2xl p-4 w-80 border border-gray-200 focus-within:ring-2 focus-within:ring-purple-400 transition-all"
+			class={`flex flex-col items-center shadow-sm rounded-2xl p-4 w-80 border border-gray-200 focus-within:ring-2 ${focusColors[lane]} transition-all`}
 			role="region"
 			aria-label={`Lane ${lane}`}
 		>

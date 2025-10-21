@@ -4,6 +4,13 @@
 
 	const { status, items, color, onMove } = $props();
 
+	let borderColors = {
+		"To Do": "border-blue-400",
+		"Doing": "border-yellow-400",
+		"Done": "border-green-400",
+		"Archive": "border-gray-400"
+	};
+
 	function dragStart(item, event) {
 		event.dataTransfer.setData("text/plain", JSON.stringify(item));
 	}
@@ -26,9 +33,8 @@
 	}
 </script>
 
-<!-- svelte-ignore a11y_no_static_element_interactions -->
 <section
-	class="bg-white h-[350px] w-[220px] space-y-0 rounded shadow overflow-y-auto"
+	class={`bg-white h-[350px] w-[220px] space-y-0 rounded-2xl shadow overflow-y-auto border-3 ${borderColors[status]}`}
 	aria-label={status}
 	ondragover={dragOver}
 	ondrop={drop}
