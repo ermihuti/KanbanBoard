@@ -61,32 +61,37 @@ END:VCALENDAR
 </script>
 
 <article
-	class={`p-3 cursor-grab rounded text-white space-y-1 shadow transition duration-300 
-		${isOverdue ? 'bg-red-500 animate-pulse' : 'bg-purple-400'}`}
+	class={`p-3 cursor-grab rounded text-white space-y-1 shadow transition duration-300 border-l-8 ${borderColors[issue.status]} hover:shadow-lg hover:scale-[1.02]
+		${isOverdue && (issue.status === 'To Do' || issue.status === 'Doing') ? 'bg-red-300 animate-pulse' : 'bg-white'} `}
 	draggable="true"
+	role="group"
+	aria-label={`Issue: ${issue.title}`}
 >
-	<h3 class="font-semibold">{issue.title}</h3>
-	<p class="text-xs line-clamp-2">{issue.description}</p>
+	<h3 class="font-semibold text-purple-700 text-base">{issue.title}</h3>
+	<p class="text-xs text-gray-700 line-clamp-2">{issue.description}</p>
 	<p class="text-xs text-gray-500 mt-1 flex items-center gap-1">
 		<span>Created: {format(new Date(issue.creationDate), "dd.MM.yyyy", { locale: de })}</span>
 	</p>
-	<p class="text-[10px]">{format(new Date(issue.due), "dd.MM.yyyy", { locale: de })}
-		{#if isOverdue}
-			<span class="ml-1 text-yellow-200 font-semibold">(Overdue)</span>
+	<p class="text-xs text-gray-500 mt-1 flex items-center gap-1">
+		<span>Due: {format(new Date(issue.due), "dd.MM.yyyy", { locale: de })}</span>
+		{#if isOverdue && (issue.status === 'To Do' || issue.status === 'Doing')}
+			<span class="text-red-600 font-semibold">(Overdue)</span>
 		{/if}
 	</p>
-	<p class="text-[10px]">{issue.storyPoints} SP | {issue.priority}</p>
+	<p class="text-xs text-gray-600 mt-1">
+		<strong>{issue.storyPoints} SP</strong> • {issue.priority}
+	</p>
 
-	<div class="flex gap-2 pt-2">
+	<div class="flex gap-2 pt-3">
 		<button
-			class="px-3 py-1 rounded bg-white text-purple-700 text-xs hover:bg-gray-100 transition"
+			class="px-3 py-1.5 rounded-lg bg-purple-50 text-purple-700 text-xs font-medium border border-purple-200 hover:bg-purple-100 focus:outline-none focus:ring-2 focus:ring-purple-400 focus:ring-offset-1 transition-all"
 			onclick={share}
 		>
 			Share
 		</button>
 
 		<button
-			class="px-3 py-1 rounded bg-white text-purple-700 text-xs hover:bg-gray-100 transition"
+			class="px-3 py-1.5 rounded-lg bg-purple-600 text-white text-xs font-medium shadow hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-400 focus:ring-offset-1 transition-all"
 			onclick={exportICS}
 		>
 			Export .ics
