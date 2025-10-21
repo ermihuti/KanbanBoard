@@ -98,7 +98,7 @@
 <main class="p-8 w-full bg-gray-50 min-h-[600px] flex justify-between items-start gap-6 overflow-x-auto rounded-2xl">
 	{#each lanesArray as lane}
 		<div
-			class="flex flex-col items-center bg-white shadow-sm rounded-2xl p-4 w-80 border border-gray-200 focus-within:ring-2 focus-within:ring-purple-400 transition-all"
+			class="flex flex-col items-center shadow-sm rounded-2xl p-4 w-80 border border-gray-200 focus-within:ring-2 focus-within:ring-purple-400 transition-all"
 			role="region"
 			aria-label={`Lane ${lane}`}
 		>
