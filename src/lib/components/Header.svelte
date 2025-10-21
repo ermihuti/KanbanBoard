@@ -62,16 +62,16 @@
 	});
 </script>
 
-<header class="relative flex items-center justify-center px-6 py-3 bg-purple-600 text-white shadow-md">
+<header class="sticky top-0 z-50 flex items-center justify-between px-8 py-4 bg-gradient-to-r from-purple-700 to-purple-500 text-white shadow-lg">
 	{#if flag}
-		<img src={flag} alt="Country Flag" class="absolute left-6 w-8 h-6 rounded shadow" />
+		<img src={flag} alt="Country Flag" class="w-9 h-6 rounded-md shadow-sm border border-white/30 transition-transform hover:scale-105" />
 	{/if}
 
-	<h1 class="text-xl font-semibold tracking-wide">{appName}</h1>
+	<h1 class="text-2xl font-semibold tracking-wide drop-shadow-sm select-none">{appName}</h1>
 
 	<button
 		onclick={() => showForm = true}
-		class="absolute right-6 bg-white text-purple-600 px-3 py-1 rounded shadow"
+		class="bg-white text-purple-700 px-4 py-2 rounded-xl font-medium shadow-md hover:shadow-lg hover:bg-purple-50 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-purple-600 transition-all"
 	>
 		Create Issue
 	</button>
