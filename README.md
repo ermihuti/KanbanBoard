@@ -3,7 +3,7 @@
 ## Project Overview
 
 The **Kanban Board** is a modern web-based task management application built with **SvelteKit**, **JavaScript**, and **Tailwind CSS**.  
-It allows users to create and organize issues visually in a Kanban-style layout with columns representing different task statuses such as *To Do*, *Doing*, and *Done*.  
+It allows users to create and organize issues visually in a Kanban-style layout with columns representing different task statuses such as _To Do_, _Doing_, and _Done_.  
 This project focuses on a smooth user experience, responsive design, and clean animations for an interactive workflow tool suitable for both personal and small-team use.
 
 The application provides an intuitive drag-and-drop experience, dynamic UI updates, and persistent data storage directly in the browser.  
@@ -18,7 +18,7 @@ It’s ideal for anyone who wants to manage projects, organize tasks, or simply 
   Each issue appears instantly on the board in the correct column.
 
 - **Task Organization**  
-  Issues are grouped by status (*To Do*, *Doing*, *Done*) with distinct colors, for easy visual tracking.
+  Issues are grouped by status (_To Do_, _Doing_, _Done_) with distinct colors, for easy visual tracking.
 
 - **Persistent Storage**  
   All created issues are saved in the browser’s `localStorage`. This means that refreshing or reopening the page retains all your data without requiring a backend.
@@ -58,7 +58,7 @@ git clone git@github.com:ermihuti/KanbanBoard.git
 
 Install the necessary dependencies specified in the package.json file:
 
-``` bash
+```bash
 npm install
 ```
 

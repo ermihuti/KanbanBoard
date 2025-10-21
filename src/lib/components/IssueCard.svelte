@@ -1,14 +1,14 @@
 <script>
-	import { format } from "date-fns";
-	import { de } from "date-fns/locale";
+	import { format } from 'date-fns';
+	import { de } from 'date-fns/locale';
 
 	const { issue } = $props();
 
 	let borderColors = {
-		"To Do": "border-blue-400",
-		"Doing": "border-yellow-400",
-		"Done": "border-green-400",
-		"Archive": "border-gray-400"
+		'To Do': 'border-blue-400',
+		Doing: 'border-yellow-400',
+		Done: 'border-green-400',
+		Archive: 'border-gray-400'
 	};
 
 	let now = $state(new Date());
@@ -17,12 +17,12 @@
 	async function share() {
 		try {
 			await navigator.share({
-				title: issue.title || "Untitled Issue",
-				text: `${issue.title}\n${issue.description}\nDue on: ${format(new Date(issue.due), "dd.MM.yyyy", { locale: de })}`,
+				title: issue.title || 'Untitled Issue',
+				text: `${issue.title}\n${issue.description}\nDue on: ${format(new Date(issue.due), 'dd.MM.yyyy', { locale: de })}`,
 				url: location.href
 			});
 		} catch (err) {
-			console.log("Sharing failed:", err);
+			console.log('Sharing failed:', err);
 		}
 	}
 
@@ -48,11 +48,11 @@ END:VEVENT
 END:VCALENDAR
 `.trim();
 
-		const blob = new Blob([icsContent], { type: "text/calendar" });
+		const blob = new Blob([icsContent], { type: 'text/calendar' });
 		const url = URL.createObjectURL(blob);
-		const a = document.createElement("a");
+		const a = document.createElement('a');
 		a.href = url;
-		a.download = `${issue.title.replace(/\s+/g, "_") || "issue"}.ics`;
+		a.download = `${issue.title.replace(/\s+/g, '_') || 'issue'}.ics`;
 		document.body.appendChild(a);
 		a.click();
 		document.body.removeChild(a);
@@ -61,37 +61,37 @@ END:VCALENDAR
 </script>
 
 <article
-	class={`p-3 cursor-grab rounded text-white space-y-1 shadow transition duration-300 border-l-8 ${borderColors[issue.status]} hover:shadow-lg hover:scale-[1.02]
-		${isOverdue && (issue.status === 'To Do' || issue.status === 'Doing') ? 'bg-red-300 animate-pulse' : 'bg-white'} `}
+	class={`cursor-grab space-y-1 rounded border-l-8 p-3 text-white shadow transition duration-300 ${borderColors[issue.status]} hover:scale-[1.02] hover:shadow-lg
+		${isOverdue && (issue.status === 'To Do' || issue.status === 'Doing') ? 'animate-pulse bg-red-300' : 'bg-white'} `}
 	draggable="true"
 	role="group"
 	aria-label={`Issue: ${issue.title}`}
 >
-	<h3 class="font-semibold text-purple-700 text-base">{issue.title}</h3>
-	<p class="text-xs text-gray-700 line-clamp-2">{issue.description}</p>
-	<p class="text-xs text-gray-500 mt-1 flex items-center gap-1">
-		<span>Created: {format(new Date(issue.creationDate), "dd.MM.yyyy", { locale: de })}</span>
+	<h3 class="text-base font-semibold text-purple-700">{issue.title}</h3>
+	<p class="line-clamp-2 text-xs text-gray-700">{issue.description}</p>
+	<p class="mt-1 flex items-center gap-1 text-xs text-gray-500">
+		<span>Created: {format(new Date(issue.creationDate), 'dd.MM.yyyy', { locale: de })}</span>
 	</p>
-	<p class="text-xs text-gray-500 mt-1 flex items-center gap-1">
-		<span>Due: {format(new Date(issue.due), "dd.MM.yyyy", { locale: de })}</span>
+	<p class="mt-1 flex items-center gap-1 text-xs text-gray-500">
+		<span>Due: {format(new Date(issue.due), 'dd.MM.yyyy', { locale: de })}</span>
 		{#if isOverdue && (issue.status === 'To Do' || issue.status === 'Doing')}
-			<span class="text-red-600 font-semibold">(Overdue)</span>
+			<span class="font-semibold text-red-600">(Overdue)</span>
 		{/if}
 	</p>
-	<p class="text-xs text-gray-600 mt-1">
+	<p class="mt-1 text-xs text-gray-600">
 		<strong>{issue.storyPoints} SP</strong> • {issue.priority}
 	</p>
 
 	<div class="flex gap-2 pt-3">
 		<button
-			class="px-3 py-1.5 rounded-lg bg-purple-50 text-purple-700 text-xs font-medium border border-purple-200 hover:bg-purple-100 focus:outline-none focus:ring-2 focus:ring-purple-400 focus:ring-offset-1 transition-all"
+			class="rounded-lg border border-purple-200 bg-purple-50 px-3 py-1.5 text-xs font-medium text-purple-700 transition-all hover:bg-purple-100 focus:ring-2 focus:ring-purple-400 focus:ring-offset-1 focus:outline-none"
 			onclick={share}
 		>
 			Share
 		</button>
 
 		<button
-			class="px-3 py-1.5 rounded-lg bg-purple-600 text-white text-xs font-medium shadow hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-400 focus:ring-offset-1 transition-all"
+			class="rounded-lg bg-purple-600 px-3 py-1.5 text-xs font-medium text-white shadow transition-all hover:bg-purple-700 focus:ring-2 focus:ring-purple-400 focus:ring-offset-1 focus:outline-none"
 			onclick={exportICS}
 		>
 			Export .ics
