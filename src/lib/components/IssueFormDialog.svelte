@@ -8,6 +8,7 @@
 	let dueDate = $state("");
 	let storyPoints = $state(1);
 	let priority = $state("Medium");
+	let creationDate = $state(format(new Date(), "yyyy-MM-dd"));
 
 	let dialogRef = $state();
 
@@ -43,6 +44,7 @@
 
 		<input bind:value={title} placeholder="Title" class="border p-2 w-full mb-2 rounded" />
 		<textarea bind:value={description} placeholder="Description" class="border p-2 w-full mb-2 rounded"></textarea>
+		<input id="creation-date-input" type="date" bind:value={creationDate} class="border p-2 w-full mb-3 rounded bg-gray-100 text-gray-600" readonly />
 		<input type="date" bind:value={dueDate} class="border p-2 w-full mb-2 rounded" />
 		<input type="number" bind:value={storyPoints} min="1" class="border p-2 w-full mb-2 rounded" />
 		<select bind:value={priority} class="border p-2 w-full mb-2 rounded">
