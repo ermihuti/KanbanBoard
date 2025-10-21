@@ -67,6 +67,9 @@ END:VCALENDAR
 >
 	<h3 class="font-semibold">{issue.title}</h3>
 	<p class="text-xs line-clamp-2">{issue.description}</p>
+	<p class="text-xs text-gray-500 mt-1 flex items-center gap-1">
+		<span>Created: {format(new Date(issue.creationDate), "dd.MM.yyyy", { locale: de })}</span>
+	</p>
 	<p class="text-[10px]">{format(new Date(issue.due), "dd.MM.yyyy", { locale: de })}
 		{#if isOverdue}
 			<span class="ml-1 text-yellow-200 font-semibold">(Overdue)</span>
