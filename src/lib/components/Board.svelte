@@ -17,7 +17,7 @@
 	};
 
 	const issues = $state(JSON.parse(localStorage.getItem("savedIssues")) || [
-		{ id: 1, title: "Example Task", status: "To Do", storyPoints: 2, due: "2025-10-10" }
+		{ id: 1, title: "Example Task", description: "This is an example task", status: "To Do", storyPoints: 2, priority: "Medium", creationDate: "2025-10-10", due: "2025-10-20" }
 	]);
 
 	for (const i of issues) {
