@@ -8,7 +8,7 @@
 	let dueDate = $state("");
 	let storyPoints = $state(1);
 	let priority = $state("Medium");
-	let creationDate = $state(format(new Date(), "dd.MM.yyyy"));
+	let creationDate = $state(new Date().toISOString().split("T")[0]);
 
 	let dialogRef = $state();
 
