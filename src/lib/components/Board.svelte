@@ -1,6 +1,7 @@
 <script>
 	import Lane from "./Lane.svelte";
 	import IssueFormDialog from "./IssueFormDialog.svelte";
+	import notificationIcon from "$lib/assets/notification-icon.png";
 
 	const allLanes = $state({
 		"To Do": [],
@@ -39,7 +40,7 @@
 			permission = await Notification.requestPermission();
 		}
 		if (permission === "granted") {
-			new Notification(title, { body: notif });
+			new Notification(title, { body: notif, icon: notificationIcon });
 		}
 	}
 
