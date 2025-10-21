@@ -4,6 +4,13 @@
 
 	const { issue } = $props();
 
+	let borderColors = {
+		"To Do": "border-blue-400",
+		"Doing": "border-yellow-400",
+		"Done": "border-green-400",
+		"Archive": "border-gray-400"
+	};
+
 	let now = $state(new Date());
 	let isOverdue = $derived(new Date(issue.due) < now);
 
