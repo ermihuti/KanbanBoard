@@ -72,6 +72,7 @@
 	<button
 		onclick={() => showForm = true}
 		class="bg-white text-purple-700 px-4 py-2 rounded-xl font-medium shadow-md hover:shadow-lg hover:bg-purple-50 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-purple-600 transition-all"
+		aria-label="Create Issue"
 	>
 		Create Issue
 	</button>

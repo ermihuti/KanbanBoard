@@ -102,7 +102,7 @@
 			role="region"
 			aria-label={`Lane ${lane}`}
 		>
-			<Lane status={lane} items={allLanes[lane]} onMove={moveTask} />
+			<Lane status={lane} items={allLanes[lane]} onMove={moveTask} color={laneColors[lane]}/>
 			<p class="mt-3 text-sm font-medium text-gray-600">
 				Story Points: {getStoryPoints(lane)}
 			</p>
